@@ -1,45 +1,51 @@
-function fetchTodos() {
-    return fetch('https://jsonplaceholder.typicode.com/todos')
-        .then(response => response.json());
-}
-
-// Display the todos and add event listeners to checkboxes
-function displayTodos(todos) {
-    const todoList = document.getElementById('todo-list');
+document.addEventListener('DOMContentLoaded', () => {
+    const todoListElement = document.getElementById('todoList');
     let completedCount = 0;
 
-    todos.forEach(todo => {
-        const li = document.createElement('li');
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.checked = todo.completed; 
-
-        checkbox.addEventListener('change', () => {
-            if (checkbox.checked) {
-                completedCount++;
+    function updateCompletionCount() {
+        return new Promise((resolve) => {
+            if (completedCount === 5) {
+                resolve('Congrats. 5 Tasks have been Successfully Completed');
             } else {
-                completedCount--;
+                resolve();
             }
-            checkFiveTasks(completedCount)
-                .then(message => alert(message))
-                .catch(() => {});
         });
+    }
 
-        li.appendChild(checkbox);
-        li.appendChild(document.createTextNode(todo.title));
-        todoList.appendChild(li);
-    });
-}
+    function fetchTodos() {
+        fetch('https://jsonplaceholder.typicode.com/todos')
+            .then(response => response.json())
+            .then(todos => {
+                todos.forEach(todo => {
+                    const todoItem = document.createElement('div');
+                    todoItem.className = 'todo-item';
 
-function checkFiveTasks(completedCount) {
-    return new Promise((resolve, reject) => {
-        if (completedCount === 5) {
-            resolve("Congrats. 5 Tasks have been Successfully Completed");
-        } else {
-            reject();
-        }
-    });
-}
-fetchTodos().then(todos => {
-    displayTodos(todos);
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = todo.completed;
+                    checkbox.addEventListener('change', () => {
+                        if (checkbox.checked) {
+                            completedCount++;
+                        } else {
+                            completedCount--;
+                        }
+                        updateCompletionCount().then(message => {
+                            if (message) {
+                                alert(message);
+                            }
+                        });
+                    });
+
+                    const label = document.createElement('label');
+                    label.textContent = todo.title;
+
+                    todoItem.appendChild(checkbox);
+                    todoItem.appendChild(label);
+                    todoListElement.appendChild(todoItem);
+                });
+            })
+            .catch(error => console.error('Error fetching todos:', error));
+    }
+
+    fetchTodos();
 });
