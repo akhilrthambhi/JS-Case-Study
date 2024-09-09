@@ -1,0 +1,82 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+    
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; 
+}
+
+#background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transform: translate(-50%, -50%);
+}
+/* bg vedioo end */
+
+.logo{
+    height: 30px;
+    width: auto;
+    padding-right: 2px;
+
+}
+
+
+/* content */
+
+.content{
+    /* margin-right: 20%;;
+    margin-left: 20%; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 25px;
+    box-shadow: 10px 15px 20px darkslategrey;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+    
+    
+}
+.content h3{
+    margin-top: 20px;
+}
+h1,h3{
+    color: whitesmoke;
+}
+
+.container{
+    /* border: 2px solid blue; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top:25%
+}
+
+footer{
+    border: 2px solid red;
+    position:absolute;bottom: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    
+
+
+}
